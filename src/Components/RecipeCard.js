@@ -2,23 +2,21 @@ import React from 'react';
 
 import { Card } from 'antd';
 
-export default class RecipeCard extends React.Component {
-  render() {
-    const { Meta } = Card;
+export default function RecipeCard(props) {
+  const { Meta } = Card;
 
-    return (
-      <Card
-        hoverable
-        style={{ width: 240 }}
-        cover={
-          <img
-            alt="example"
-            src="https://os.alipayobjects.com/rmsportal/QBnOOoLaAfKPirc.png"
-          />
-        }
-      >
-        <Meta title="Europe Street beat" description="www.instagram.com" />
-      </Card>
-    );
-  }
+  return (
+    <Card
+      hoverable
+      style={{ width: 240 }}
+      cover={
+        <img
+          alt="example"
+          src="https://os.alipayobjects.com/rmsportal/QBnOOoLaAfKPirc.png"
+        />
+      }
+    >
+      <Meta title={props.recipe.title} description={props.recipe.description} />
+    </Card>
+  );
 }
