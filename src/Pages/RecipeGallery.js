@@ -2,7 +2,7 @@ import React from 'react';
 
 import RecipeCard from '../Components/RecipeCard';
 
-export default class Welcome extends React.Component {
+export default class RecipeGallery extends React.Component {
   constructor(props) {
     super(props);
     // Don't call this.setState() here!
