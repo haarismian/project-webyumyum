@@ -6,7 +6,7 @@ import Welcome from './Pages/RecipeGallery';
 
 const App = () => (
   <div className="App">
-    <Button type="primary">Button</Button>
+    <Button type="primary">New Recipe</Button>
     <Welcome />
   </div>
 );
