@@ -1,9 +1,8 @@
 import React from 'react';
 import 'antd/dist/antd.css';
-import { Form, Input, Button, Checkbox, Menu, Dropdown } from 'antd';
+import { Form, Button, Input, Select, InputNumber } from 'antd';
 
-import { DownOutlined } from '@ant-design/icons';
-const { SubMenu } = Menu;
+const { Option, OptGroup } = Select;
 
 const NewRecipe = () => {
   const onFinish = (values) => {
@@ -14,22 +13,13 @@ const NewRecipe = () => {
     console.log('Failed:', errorInfo);
   };
 
-  const menu = (
-    <Menu>
-      <Menu.ItemGroup title="Group title">
-        <Menu.Item>1st menu item</Menu.Item>
-        <Menu.Item>2nd menu item</Menu.Item>
-      </Menu.ItemGroup>
-      <SubMenu title="sub menu">
-        <Menu.Item>3rd menu item</Menu.Item>
-        <Menu.Item>4th menu item</Menu.Item>
-      </SubMenu>
-      <SubMenu title="disabled sub menu" disabled>
-        <Menu.Item>5d menu item</Menu.Item>
-        <Menu.Item>6th menu item</Menu.Item>
-      </SubMenu>
-    </Menu>
-  );
+  function handleChange(value) {
+    console.log(`selected ${value}`);
+  }
+
+  function onChange(value) {
+    console.log('changed', value);
+  }
 
   return (
     <Form
@@ -41,25 +31,8 @@ const NewRecipe = () => {
       onFinishFailed={onFinishFailed}
     >
       <Form.Item
-        label="Username"
-        name="username"
-        rules={[
-          {
-            required: true,
-            message: 'Please input your username!',
-          },
-        ]}
-      >
-        <Dropdown overlay={menu}>
-          <a className="ant-dropdown-link" onClick={(e) => e.preventDefault()}>
-            Cascading menu <DownOutlined />
-          </a>
-        </Dropdown>
-      </Form.Item>
-
-      <Form.Item
-        label="Password"
-        name="password"
+        label="Quantity"
+        name="quantity"
         rules={[
           {
             required: true,
@@ -67,13 +40,46 @@ const NewRecipe = () => {
           },
         ]}
       >
-        <Input.Password />
+        <InputNumber min={0} max={10} step={0.1} onChange={onChange} />
       </Form.Item>
-
-      <Form.Item name="remember" valuePropName="checked">
-        <Checkbox>Remember me</Checkbox>
+      <Form.Item
+        label="Unit"
+        name="unit"
+        rules={[
+          {
+            required: true,
+            message: 'Please input your username!',
+          },
+        ]}
+      >
+        <Select
+          showSearch
+          defaultValue="lucy"
+          style={{ width: 200 }}
+          onChange={handleChange}
+        >
+          <OptGroup label="Manager">
+            <Option value="jack">Jack</Option>
+            <Option value="lucy">Lucy</Option>
+          </OptGroup>
+          <OptGroup label="Engineer">
+            <Option value="Yiminghe">yiminghe</Option>
+          </OptGroup>
+        </Select>
+        ,
       </Form.Item>
-
+      <Form.Item
+        label="Ingredient"
+        name="ingredient"
+        rules={[
+          {
+            required: true,
+            message: 'Please input your password!',
+          },
+        ]}
+      >
+        <Input placeholder="Basic usage" />
+      </Form.Item>
       <Form.Item>
         <Button type="primary" htmlType="submit">
           Submit
