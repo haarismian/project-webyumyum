@@ -1,20 +1,6 @@
 import React from 'react';
 import 'antd/dist/antd.css';
 import { Form, Input, Button, Checkbox } from 'antd';
-const layout = {
-  labelCol: {
-    span: 8,
-  },
-  wrapperCol: {
-    span: 16,
-  },
-};
-const tailLayout = {
-  wrapperCol: {
-    offset: 8,
-    span: 16,
-  },
-};
 
 const NewRecipe = () => {
   const onFinish = (values) => {
@@ -27,7 +13,6 @@ const NewRecipe = () => {
 
   return (
     <Form
-      {...layout}
       name="basic"
       initialValues={{
         remember: true,
@@ -61,11 +46,11 @@ const NewRecipe = () => {
         <Input.Password />
       </Form.Item>
 
-      <Form.Item {...tailLayout} name="remember" valuePropName="checked">
+      <Form.Item name="remember" valuePropName="checked">
         <Checkbox>Remember me</Checkbox>
       </Form.Item>
 
-      <Form.Item {...tailLayout}>
+      <Form.Item>
         <Button type="primary" htmlType="submit">
           Submit
         </Button>
