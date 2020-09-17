@@ -11,19 +11,19 @@ export default class NewRecipe extends React.Component {
     super(props);
     this.state = {
       value: '',
+      ingredients: [
+        {
+          ingredientQuantity: 1.0,
+          ingredientUnit: 'lb',
+          ingredientName: 'apple',
+        },
+        // {
+        //   ingredientQuantity: 1,
+        //   ingredientUnit: 'lb',
+        //   ingredientName: 'apple',
+        // },
+      ],
     };
-    this.ingredients = [
-      {
-        ingredientQuantity: 1.0,
-        ingredientUnit: 'lb',
-        ingredientName: 'apple',
-      },
-      // {
-      //   ingredientQuantity: 1,
-      //   ingredientUnit: 'lb',
-      //   ingredientName: 'apple',
-      // },
-    ];
   }
 
   onFinish = (values) => {
@@ -46,6 +46,19 @@ export default class NewRecipe extends React.Component {
     this.setState({ value });
   };
 
+  addIngredient = () => {
+    this.setState((prevState) => ({
+      Ingredients: [
+        ...prevState.ingredients,
+        {
+          ingredientQuantity: 1.0,
+          ingredientUnit: 'lb',
+          ingredientName: 'apple',
+        },
+      ],
+    }));
+  };
+
   render() {
     const { value } = this.state;
 
@@ -59,7 +72,10 @@ export default class NewRecipe extends React.Component {
         onFinishFailed={this.onFinishFailed}
       >
         <Form.Item>
-          <IngredientInputs ingredients={this.ingredients} />
+          <IngredientInputs ingredients={this.state.ingredients} />
+          <Button type="primary" htmlType="submit" onClick={this.addIngredient}>
+            Add Ingredient
+          </Button>
         </Form.Item>
         <Form.Item>
           <TextArea
