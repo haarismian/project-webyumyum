@@ -1,8 +1,9 @@
 import React from 'react';
 import 'antd/dist/antd.css';
-import { Form, Button, Input, Select, InputNumber } from 'antd';
+import { Form, Button, Input } from 'antd';
 
-const { Option, OptGroup } = Select;
+import IngredientInputs from '../Components/IngredientInputs';
+
 const { TextArea } = Input;
 
 export default class NewRecipe extends React.Component {
@@ -11,6 +12,18 @@ export default class NewRecipe extends React.Component {
     this.state = {
       value: '',
     };
+    this.ingredients = [
+      {
+        ingredientQuantity: 1.0,
+        ingredientUnit: 'lb',
+        ingredientName: 'apple',
+      },
+      // {
+      //   ingredientQuantity: 1,
+      //   ingredientUnit: 'lb',
+      //   ingredientName: 'apple',
+      // },
+    ];
   }
 
   onFinish = (values) => {
@@ -45,55 +58,8 @@ export default class NewRecipe extends React.Component {
         onFinish={this.onFinish}
         onFinishFailed={this.onFinishFailed}
       >
-        <Form.Item
-          label="Quantity"
-          name="quantity"
-          rules={[
-            {
-              required: true,
-              message: 'Please input your password!',
-            },
-          ]}
-        >
-          <InputNumber min={0} max={10} step={0.1} onChange={this.onChange} />
-        </Form.Item>
-        <Form.Item
-          label="Unit"
-          name="unit"
-          rules={[
-            {
-              required: true,
-              message: 'Please input your username!',
-            },
-          ]}
-        >
-          <Select
-            showSearch
-            defaultValue="lucy"
-            style={{ width: 200 }}
-            onChange={this.handleChange}
-          >
-            <OptGroup label="Manager">
-              <Option value="jack">Jack</Option>
-              <Option value="lucy">Lucy</Option>
-            </OptGroup>
-            <OptGroup label="Engineer">
-              <Option value="Yiminghe">yiminghe</Option>
-            </OptGroup>
-          </Select>
-          ,
-        </Form.Item>
-        <Form.Item
-          label="Ingredient"
-          name="ingredient"
-          rules={[
-            {
-              required: true,
-              message: 'Please input your password!',
-            },
-          ]}
-        >
-          <Input placeholder="Basic usage" />
+        <Form.Item>
+          <IngredientInputs ingredients={this.ingredients} />
         </Form.Item>
         <Form.Item>
           <TextArea
