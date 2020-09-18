@@ -10,18 +10,13 @@ export default class NewRecipe extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      value: '',
+      recipeDirections: '',
       ingredients: [
         {
           ingredientQuantity: 1.0,
           ingredientUnit: 'lb',
           ingredientName: 'apple',
         },
-        // {
-        //   ingredientQuantity: 1,
-        //   ingredientUnit: 'lb',
-        //   ingredientName: 'apple',
-        // },
       ],
     };
   }
@@ -43,12 +38,12 @@ export default class NewRecipe extends React.Component {
   }
 
   onChange2 = ({ target: { value } }) => {
-    this.setState({ value });
+    this.setState({ recipeDirections: value });
   };
 
   addIngredient = () => {
     this.setState((prevState) => ({
-      Ingredients: [
+      ingredients: [
         ...prevState.ingredients,
         {
           ingredientQuantity: 1.0,
@@ -59,9 +54,11 @@ export default class NewRecipe extends React.Component {
     }));
   };
 
-  render() {
-    const { value } = this.state;
+  createRecipe = () => {
+    console.log(this.state);
+  };
 
+  render() {
     return (
       <Form
         name="basic"
@@ -79,14 +76,14 @@ export default class NewRecipe extends React.Component {
         </Form.Item>
         <Form.Item>
           <TextArea
-            value={value}
+            value={this.state.recipeDirections}
             onChange={this.onChange2}
             placeholder="Controlled autosize"
             autoSize={{ minRows: 3, maxRows: 5 }}
           />
         </Form.Item>
         <Form.Item>
-          <Button type="primary" htmlType="submit">
+          <Button type="primary" htmlType="submit" onClick={this.createRecipe}>
             Submit
           </Button>
         </Form.Item>
