@@ -4,6 +4,11 @@ import { Form, Input, Select, InputNumber } from 'antd';
 
 const { Option, OptGroup } = Select;
 
+const ingredientUnitMap = {
+  weight: ['lb', 'g'],
+  volume: ['oz', 'mL'],
+};
+
 const IngredientInputs = (props) => {
   return props.ingredients.map((val) => {
     return (
@@ -17,12 +22,13 @@ const IngredientInputs = (props) => {
         </Form.Item>
         <Form.Item label="Unit" name="unit">
           <Select showSearch defaultValue={val.ingredientUnit}>
-            <OptGroup label="Manager">
-              <Option value="jack">Jack</Option>
-              <Option value="lucy">Lucy</Option>
+            <OptGroup label="Weight">
+              <Option value="g">g</Option>
+              <Option value="lb">lb</Option>
             </OptGroup>
-            <OptGroup label="Engineer">
-              <Option value="Yiminghe">yiminghe</Option>
+            <OptGroup label="Volyme">
+              <Option value="oz">oz</Option>
+              <Option value="mL">mL</Option>
             </OptGroup>
           </Select>
         </Form.Item>
