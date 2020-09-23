@@ -1,8 +1,12 @@
 import React from 'react';
 import 'antd/dist/antd.css';
-import { Form, Button, Input } from 'antd';
+import { Form, Button, Input, Space } from 'antd';
 
 import IngredientInputs from '../Components/IngredientInputs';
+
+import { ingredientsData } from '../DataFiles/Ingredients';
+
+import { MinusCircleOutlined, PlusOutlined } from '@ant-design/icons';
 
 const { TextArea } = Input;
 
@@ -11,13 +15,7 @@ export default class NewRecipe extends React.Component {
     super(props);
     this.state = {
       recipeDirections: '',
-      ingredients: [
-        {
-          ingredientQuantity: 1.0,
-          ingredientUnit: 'lb',
-          ingredientName: 'apple',
-        },
-      ],
+      ingredients: ingredientsData,
     };
   }
 
@@ -67,9 +65,11 @@ export default class NewRecipe extends React.Component {
         }}
         onFinish={this.onFinish}
         onFinishFailed={this.onFinishFailed}
+        onChange={this.handleChange}
       >
         <Form.Item>
           <IngredientInputs ingredients={this.state.ingredients} />
+
           <Button type="primary" htmlType="submit" onClick={this.addIngredient}>
             Add Ingredient
           </Button>
@@ -87,6 +87,69 @@ export default class NewRecipe extends React.Component {
             Submit
           </Button>
         </Form.Item>
+        <Form.List name="users">
+          {(fields, { add, remove }) => {
+            return (
+              <div>
+                {fields.map((field) => (
+                  <Space
+                    key={field.key}
+                    style={{ display: 'flex', marginBottom: 8 }}
+                    align="start"
+                  >
+                    <Form.Item
+                      {...field}
+                      name={[field.name, 'quantity']}
+                      fieldKey={[field.fieldKey, 'quantity']}
+                      rules={[
+                        { required: true, message: 'Missing ingredient count' },
+                      ]}
+                    >
+                      <Input placeholder="Ingredient quantity" />
+                    </Form.Item>
+                    <Form.Item
+                      {...field}
+                      name={[field.name, 'unit']}
+                      fieldKey={[field.fieldKey, 'unit']}
+                      rules={[
+                        { required: true, message: 'Missing ingredient unit' },
+                      ]}
+                    >
+                      <Input placeholder="Ingredient unit" />
+                    </Form.Item>
+                    <Form.Item
+                      {...field}
+                      name={[field.name, 'ingredient']}
+                      fieldKey={[field.fieldKey, 'ingredient']}
+                      rules={[
+                        { required: true, message: 'Missing ingredient name' },
+                      ]}
+                    >
+                      <Input placeholder="Ingredient Name" />
+                    </Form.Item>
+                    <MinusCircleOutlined
+                      onClick={() => {
+                        remove(field.name);
+                      }}
+                    />
+                  </Space>
+                ))}
+
+                <Form.Item>
+                  <Button
+                    type="dashed"
+                    onClick={() => {
+                      add();
+                    }}
+                    block
+                  >
+                    <PlusOutlined /> Add field
+                  </Button>
+                </Form.Item>
+              </div>
+            );
+          }}
+        </Form.List>
       </Form>
     );
   }
